@@ -1,5 +1,4 @@
 <head>
-
      <script type="text/javascript" src="./js/jquery.min.js"></script>
 
    <!-- Latest compiled and minified CSS -->
@@ -12,13 +11,16 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link href="./js/style.css" type="text/css" rel="stylesheet">
     <link href="./js/main.css" type="text/css" rel="stylesheet">
-     <script src="./js/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script src="./js/ace.js" type="text/javascript" charset="utf-8"></script>
      <script src="./js/knockout.js"></script>         
 
        <!--Editable JS-->
+       
 
-    <script src="./editable/survey.ko.min.js"></script>
-        <link href="./editable/surveyeditor.css" type="text/css" rel="stylesheet">
+    <link href="./editable/surveyeditor.css" type="text/css" rel="stylesheet">    
+    <script src="./editable/initial.js"></script>  
+    <script src="./editable/survey.ko.js"></script>
+        
     <script src="./editable/surveyeditor.js"></script>
 
     <!--End of Editable JS-->
@@ -31,8 +33,6 @@
    var options = {};
         options.questionTypes = ["checkbox","radiogroup"];
         options.generateValidJSON = true;
-        //        options.showHide();
-        //        options.showDesigner();
         var editor = new SurveyEditor.SurveyEditor("surveyjseditor", options);
-        editor.showOptions = true;
+        editor.showOptions = false;
 </script>
