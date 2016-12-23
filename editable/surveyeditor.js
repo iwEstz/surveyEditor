@@ -4151,13 +4151,21 @@
                         }
                     };
                     SurveyEditor.prototype.doDraggingQuestion = function(questionType, e) {
-                        this.dragDropHelper.startDragNewQuestion(e, questionType, this.getNewQuestionName());
+                        if ($('.itemCount').length > 0 && questionType != 'html') {
+                            $("#alertModal").modal();
+                        } else {
+                            this.dragDropHelper.startDragNewQuestion(e, questionType, this.getNewQuestionName());
+                        }
                     };
                     SurveyEditor.prototype.doDraggingCopiedQuestion = function(json, e) {
                         this.dragDropHelper.startDragCopiedQuestion(e, this.getNewQuestionName(), json);
                     };
                     SurveyEditor.prototype.doClickQuestion = function(questionType) {
-                        this.doClickQuestionCore(Survey.QuestionFactory.Instance.createQuestion(questionType, this.getNewQuestionName()));
+                        if ($('.itemCount').length > 0 && questionType != 'html') {
+                            $("#alertModal").modal();
+                        } else {
+                            this.doClickQuestionCore(Survey.QuestionFactory.Instance.createQuestion(questionType, this.getNewQuestionName()));
+                        }
                     };
                     SurveyEditor.prototype.doClickCopiedQuestion = function(json) {
                         var name = this.getNewQuestionName();
