@@ -22,68 +22,17 @@
     <script src="./editable/survey.ko.js"></script>
         
     <script src="./editable/surveyeditor.js"></script>
-     <script src="./editable/extension.js"></script>
 
-
+    <!--End of Editable JS-->
    
-<style>
-.container {
-  max-width: 750px;
-  padding: 15px;
-}
-</style>
+
 
 </head>
-<body>
 <div id="surveyjseditor"></div>
-
-<!-- Modal -->
-<div id="uploadModal" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <!--Content-->
-        <div class="modal-content">
-            <!--Header-->
-            <!--Body-->
-            <div class="modal-body">
-            </div>
-            <!--Footer-->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-        <!--/.Content-->
-    </div>
-</div>
-<!--Modal Alert Dup-->
-<div class="modal fade" id="alertModal" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header bg-danger">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h2 class="modal-title">Message</h2>
-            </div>
-            <div class="modal-body text-danger">
-                <h3>Question already exist in this page.</h3>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-</body>
 <script type="text/javascript">
    var options = {};
-        options.questionTypes = ["radiogroup"];
+        options.questionTypes = ["checkbox","radiogroup"];
         options.generateValidJSON = true;
         var editor = new SurveyEditor.SurveyEditor("surveyjseditor", options);
         editor.showOptions = false;
-
-    
 </script>
-<footer>
-</footer>

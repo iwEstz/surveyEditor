@@ -2109,11 +2109,9 @@
                         };
                         return ChoicesRestfull;
                     }(_base.Base);
-                    _jsonobject.JsonObject.metaData.addClass(
-                        "choicesByUrl", ["url", "path", "valueName", "titleName"],
-                        function() {
-                            return new ChoicesRestfull();
-                        });
+                    _jsonobject.JsonObject.metaData.addClass("choicesByUrl", ["url", "path", "valueName", "titleName"], function() {
+                        return new ChoicesRestfull();
+                    });
                     /* WEBPACK VAR INJECTION */
                 }.call(exports, __webpack_require__(3)))
 
@@ -3287,20 +3285,16 @@
                         return Question;
                     }(_questionbase.QuestionBase);
                     _jsonobject.JsonObject.metaData.addClass("question", [{
-                            // name: "title:text",
-                            onGetValue: function onGetValue(obj) {
-                                return obj.titleValue;
-                            }
-                        },
-                        // {
-                        //     name: "commentText",
-                        //     onGetValue: function onGetValue(obj) {
-                        //         return obj.commentTextValue;
-                        //     }
-                        // }, 
-                        // "isRequired:boolean", 
-                        // { name: "validators:validators", baseClassName: "surveyvalidator", classNamePart: "validator" }
-                    ], null, "questionbase");
+                        name: "title:text",
+                        onGetValue: function onGetValue(obj) {
+                            return obj.titleValue;
+                        }
+                    }, {
+                        name: "commentText",
+                        onGetValue: function onGetValue(obj) {
+                            return obj.commentTextValue;
+                        }
+                    }, "isRequired:boolean", { name: "validators:validators", baseClassName: "surveyvalidator", classNamePart: "validator" }], null, "questionbase");
                     /* WEBPACK VAR INJECTION */
                 }.call(exports, __webpack_require__(3)))
 
@@ -3453,10 +3447,7 @@
                         QuestionBase.questionCounter = 100;
                         return QuestionBase;
                     }(_base.Base);
-                    _jsonobject.JsonObject.metaData.addClass("questionbase", ["!name",
-                        // { name: "visible:boolean", default: true }, "visibleIf:text", { name: "width" }, { name: "startWithNewLine:boolean", default: true },
-                        // { name: "indent:number", default: 0, choices: [0, 1, 2, 3] }
-                    ]);
+                    _jsonobject.JsonObject.metaData.addClass("questionbase", ["!name", { name: "visible:boolean", default: true }, "visibleIf:text", { name: "width" }, { name: "startWithNewLine:boolean", default: true }, { name: "indent:number", default: 0, choices: [0, 1, 2, 3] }]);
                     /* WEBPACK VAR INJECTION */
                 }.call(exports, __webpack_require__(3)))
 
@@ -3558,7 +3549,6 @@
                             _super.call(this, name);
                             this.visibleChoicesCache = null;
                             this.otherItem = new _base.ItemValue("other", _surveyStrings.surveyLocalization.getString("otherItemText"));
-                            this.allow_multiple = false;
                             this.choicesFromUrl = null;
                             this.cachedValueForUrlRequestion = null;
                             this.choicesValues = new Array();
@@ -3566,27 +3556,12 @@
                             this.storeOthersAsComment = true;
                             this.choicesOrderValue = "none";
                             this.isSettingComment = false;
-                            // Custom Attribute 
-                            this.ItemImages = "";
-                            // 
                             this.choicesByUrl = this.createRestfull();
                             var self = this;
                             this.choicesByUrl.getResultCallback = function(items) {
                                 self.onLoadChoicesFromUrl(items);
                             };
                         }
-                        // Custom Define
-                        Object.defineProperty(QuestionSelectBase.prototype, "images", {
-                            get: function get() {
-                                return this.ItemImages;
-                            },
-                            set: function set(newValue) {
-                                this.ItemImages = newValue;
-                            },
-                            enumerable: true,
-                            configurable: true
-                        });
-                        // Endof Custom Define
                         Object.defineProperty(QuestionSelectBase.prototype, "isOtherSelected", {
                             get: function get() {
                                 return this.getStoreOthersAsComment() ? this.getHasOther(this.value) : this.getHasOther(this.cachedValue);
@@ -3767,16 +3742,6 @@
                                 return 0;
                             });
                         };
-                        Object.defineProperty(QuestionSelectBase.prototype, "AllowMultiple", {
-                            get: function get() {
-                                return this.allow_multiple;
-                            },
-                            set: function set(value) {
-                                this.allow_multiplee = value;
-                            },
-                            enumerable: true,
-                            configurable: true
-                        });
                         QuestionSelectBase.prototype.randomizeArray = function(array) {
                             for (var i = array.length - 1; i > 0; i--) {
                                 var j = Math.floor(Math.random() * (i + 1));
@@ -3810,35 +3775,25 @@
                         });
                         return QuestionCheckboxBase;
                     }(QuestionSelectBase);
-                    _jsonobject.JsonObject.metaData.addClass("selectbase", [
-                        // "hasComment:boolean", "hasOther:boolean",
-                        {
-                            name: "choices:itemvalues",
-                            onGetValue: function onGetValue(obj) {
-                                return _base.ItemValue.getData(obj.choices);
-                            },
-                            onSetValue: function onSetValue(obj, value) {
-                                obj.choices = value;
-                            }
+                    _jsonobject.JsonObject.metaData.addClass("selectbase", ["hasComment:boolean", "hasOther:boolean", {
+                        name: "choices:itemvalues",
+                        onGetValue: function onGetValue(obj) {
+                            return _base.ItemValue.getData(obj.choices);
                         },
-                        "AllowMultiple:boolean",
-                        "images:html",
-                        // { name: "choicesOrder", default: "none", choices: ["none", "asc", "desc", "random"] }, 
-                        // {
-                        //     name: "choicesByUrl:restfull",
-                        //     className: "ChoicesRestfull",
-                        //     onGetValue: function onGetValue(obj) {
-                        //         return obj.choicesByUrl.isEmpty ? null : obj.choicesByUrl;
-                        //     },
-                        //     onSetValue: function onSetValue(obj, value) {
-                        //         obj.choicesByUrl.setData(value);
-                        //     }
-                        // }, 
-                        // { name: "otherText", default: _surveyStrings.surveyLocalization.getString("otherItemText") }, "otherErrorText", { name: "storeOthersAsComment:boolean", default: true }
-                    ], null, "question");
-                    _jsonobject.JsonObject.metaData.addClass("checkboxbase", [
-                        // { name: "colCount:number", default: 1, choices: [0, 1, 2, 3, 4] }
-                    ], null, "selectbase");
+                        onSetValue: function onSetValue(obj, value) {
+                            obj.choices = value;
+                        }
+                    }, { name: "choicesOrder", default: "none", choices: ["none", "asc", "desc", "random"] }, {
+                        name: "choicesByUrl:restfull",
+                        className: "ChoicesRestfull",
+                        onGetValue: function onGetValue(obj) {
+                            return obj.choicesByUrl.isEmpty ? null : obj.choicesByUrl;
+                        },
+                        onSetValue: function onSetValue(obj, value) {
+                            obj.choicesByUrl.setData(value);
+                        }
+                    }, { name: "otherText", default: _surveyStrings.surveyLocalization.getString("otherItemText") }, "otherErrorText", { name: "storeOthersAsComment:boolean", default: true }], null, "question");
+                    _jsonobject.JsonObject.metaData.addClass("checkboxbase", [{ name: "colCount:number", default: 1, choices: [0, 1, 2, 3, 4] }], null, "selectbase");
                     /* WEBPACK VAR INJECTION */
                 }.call(exports, __webpack_require__(3)))
 
@@ -3871,7 +3826,7 @@
                         return creator(name);
                     };
                     QuestionFactory.Instance = new QuestionFactory();
-                    QuestionFactory.DefaultChoices = ["one|first value", "two|second value", "three|third value"];
+                    QuestionFactory.DefaultChoices = ["one", "two|second value", "three|third value"];
                     return QuestionFactory;
                 }();
 
@@ -4880,11 +4835,7 @@
                         PageModel.pageCounter = 100;
                         return PageModel;
                     }(_base.Base);
-                    _jsonobject.JsonObject.metaData.addClass("page", [
-                        "name",
-                        { name: "questions", baseClassName: "question" },
-                        //  { name: "visible:boolean", default: true }, "visibleIf", "title"
-                    ], function() {
+                    _jsonobject.JsonObject.metaData.addClass("page", ["name", { name: "questions", baseClassName: "question" }, { name: "visible:boolean", default: true }, "visibleIf", "title"], function() {
                         return new PageModel();
                     });
                     /* WEBPACK VAR INJECTION */
@@ -5461,9 +5412,7 @@
                             this.cookieName = null;
                             this.sendResultOnPageNext = false;
                             this.commentPrefix = "-Comment";
-                            this.title = "Survey Title";
-
-                            this.description = "Description";
+                            this.title = "Title";
                             this.showNavigationButtons = true;
                             this.showTitle = true;
                             this.showPageTitles = true;
@@ -5471,9 +5420,9 @@
                             this.requiredText = "*";
                             this.questionStartIndex = "";
                             this.questionTitleTemplate = "";
-                            this.showProgressBar = "bottom";
+                            this.showProgressBar = "off";
                             this.storeOthersAsComment = true;
-                            this.goNextPageAutomatic = true;
+                            this.goNextPageAutomatic = false;
                             this.pages = new Array();
                             this.triggers = new Array();
                             this.clearInvisibleValues = false;
@@ -6361,62 +6310,37 @@
                         };
                         return SurveyModel;
                     }(_base.Base);
-                    _jsonobject.JsonObject.metaData.addClass("survey", [
-                        // {
-                        //     name: "locale",
-                        //     choices: function choices() {
-                        //         return _surveyStrings.surveyLocalization.getLocales();
-                        //     }
-                        // }, 
-                        "title:html",
-                        "description:html",
-                        // "completedHtml:html",
-                        { name: "pages", className: "page" },
-                        {
-                            name: "questions",
-                            baseClassName: "question",
-                            onGetValue: function onGetValue(obj) {
-                                return null;
-                            },
-                            onSetValue: function onSetValue(obj, value, jsonConverter) {
-                                var page = obj.addNewPage("");
-                                jsonConverter.toObject({ questions: value }, page);
-                            }
+                    _jsonobject.JsonObject.metaData.addClass("survey", [{
+                        name: "locale",
+                        choices: function choices() {
+                            return _surveyStrings.surveyLocalization.getLocales();
+                        }
+                    }, "title", "completedHtml:html", { name: "pages", className: "page" }, {
+                        name: "questions",
+                        baseClassName: "question",
+                        onGetValue: function onGetValue(obj) {
+                            return null;
                         },
-                        // {
-                        //     name: "triggers:triggers",
-                        //     baseClassName: "surveytrigger",
-                        //     classNamePart: "trigger"
-                        // },
-                        // "surveyId", "surveyPostId", "cookieName", "sendResultOnPageNext:boolean",
-                        // { name: "showNavigationButtons:boolean", default: true },
-                        // { name: "showTitle:boolean", default: true },
-                        // { name: "showPageTitles:boolean", default: false }, "showPageNumbers:boolean",
-                        // { name: "showQuestionNumbers", default: "on", choices: ["on", "onPage", "off"] },
-                        // { name: "questionTitleLocation", default: "top", choices: ["top", "bottom"] },
-                        // { name: "showProgressBar", default: "off", choices: ["off", "top", "bottom"] },
-                        // { name: "storeOthersAsComment:boolean", default: true },
-                        // "goNextPageAutomatic:boolean",
-                        // "clearInvisibleValues:boolean", 
-                        // {
-                        //     name: "pagePrevText",
-                        //     onGetValue: function onGetValue(obj) {
-                        //         return obj.pagePrevTextValue;
-                        //     }
-                        // }, {
-                        //     name: "pageNextText",
-                        //     onGetValue: function onGetValue(obj) {
-                        //         return obj.pageNextTextValue;
-                        //     }
-                        // },
-                        //  {
-                        //     name: "completeText",
-                        //     onGetValue: function onGetValue(obj) {
-                        //         return obj.completeTextValue;
-                        //     }
-                        // },
-                        // { name: "requiredText", default: "*" }, "questionStartIndex", "questionTitleTemplate"
-                    ]);
+                        onSetValue: function onSetValue(obj, value, jsonConverter) {
+                            var page = obj.addNewPage("");
+                            jsonConverter.toObject({ questions: value }, page);
+                        }
+                    }, { name: "triggers:triggers", baseClassName: "surveytrigger", classNamePart: "trigger" }, "surveyId", "surveyPostId", "cookieName", "sendResultOnPageNext:boolean", { name: "showNavigationButtons:boolean", default: true }, { name: "showTitle:boolean", default: true }, { name: "showPageTitles:boolean", default: true }, "showPageNumbers:boolean", { name: "showQuestionNumbers", default: "on", choices: ["on", "onPage", "off"] }, { name: "questionTitleLocation", default: "top", choices: ["top", "bottom"] }, { name: "showProgressBar", default: "off", choices: ["off", "top", "bottom"] }, { name: "storeOthersAsComment:boolean", default: true }, "goNextPageAutomatic:boolean", "clearInvisibleValues:boolean", {
+                        name: "pagePrevText",
+                        onGetValue: function onGetValue(obj) {
+                            return obj.pagePrevTextValue;
+                        }
+                    }, {
+                        name: "pageNextText",
+                        onGetValue: function onGetValue(obj) {
+                            return obj.pageNextTextValue;
+                        }
+                    }, {
+                        name: "completeText",
+                        onGetValue: function onGetValue(obj) {
+                            return obj.completeTextValue;
+                        }
+                    }, { name: "requiredText", default: "*" }, "questionStartIndex", "questionTitleTemplate"]);
                     /* WEBPACK VAR INJECTION */
                 }.call(exports, __webpack_require__(3)))
 
@@ -7146,8 +7070,7 @@
 
                 exports.__esModule = true;
                 var koTemplate = exports.koTemplate = { html: "" };
-                koTemplate.html = template;
-                // koTemplate.html = '<script type="text/html" id="survey-comment">  <input data-bind="value:$data.question.koComment, visible:$data.visible, css: $root.css.question.comment" /></script><div data-bind="css: $root.css.root">    <div data-bind="visible: (title.length > 0) && showTitle && koState() != \'completed\', css: $root.css.header">        <h1 data-bind="html:title"></h1>  <h4 data-bind="html:description"></h4>  </div>    <!-- ko if: koState() == "running" -->    <div data-bind="css: $root.css.body">        <div data-bind="visible: showProgressBar ==\'top\', template: { name: \'survey-progress\', data: $data }"></div>        <div id="sq_page" data-bind="template: { name: \'survey-page\', data: koCurrentPage }"></div>        <div style="margin-top:10px" data-bind="visible: showProgressBar ==\'bottom\', template: { name: \'survey-progress\', data: $data }"></div>    </div>    <div data-bind="visible: showNavigationButtons && !isDesignMode, css: $root.css.footer">        <input type="button" data-bind="value: pagePrevText, click: prevPage, visible: !koIsFirstPage(), css: $root.cssNavigationPrev" />        <input type="button" data-bind="value: pageNextText, click: nextPage, visible: !koIsLastPage(), css: $root.cssNavigationNext" />        <input type="button" data-bind="value: completeText, click: completeLastPage, visible: koIsLastPage(), css: $root.cssNavigationComplete" />    </div>    <!-- /ko -->    <!-- ko if: koState() == "completed" -->    <div data-bind="html: processedCompletedHtml"></div>    <!-- /ko -->    <!-- ko if: koState() == "loading" -->    <div data-bind="html: processedLoadingHtml"></div>    <!-- /ko -->    <!-- ko if: koState() == "empty" -->    <div data-bind="text:emptySurveyText, css: $root.css.body"></div>    <!-- /ko --></div><script type="text/html" id="survey-page">    <h4 data-bind="visible: (title.length > 0) && data.showPageTitles, text: koNo() + processedTitle, css: $root.css.pageTitle"></h4>    <!-- ko foreach: { data: rows, as: \'row\'} -->    <div data-bind="visible: row.koVisible, css: $root.css.row">        <!-- ko foreach: { data: row.questions, as: \'question\' , afterRender: row.koAfterRender } -->            <!-- ko template: { name: \'survey-question\', data: question } --><!-- /ko -->        <!-- /ko -->    </div>    <!-- /ko --></script><script type="text/html" id="survey-progress">    <div style="width:60%;" data-bind="css: $root.css.progress">        <div data-bind="css: $root.css.progressBar, style:{width: koProgress() + \'%\'}"             role="progressbar" aria-valuemin="0"             aria-valuemax="100">            <span data-bind="text:koProgressText"></span>        </div>    </div></script><script type="text/html" id="survey-question-checkbox">    <form data-bind="css: $root.css.checkbox.root">        <!-- ko foreach: { data: question.koVisibleChoices, as: \'item\', afterRender: question.koAfterRender}  -->        <div data-bind="style:{width: question.koWidth, \'margin-right\': question.colCount == 0 ? \'5px\': \'0px\'}, css: $root.css.checkbox.item">            <label data-bind="css: $root.css.checkbox.item">                <input type="checkbox" data-bind="attr: {name: question.name, value: item.value}, checked: question.koValue" />                <span data-bind="text: item.text"></span>            </label>            <div data-bind="visible: question.hasOther && ($index() == question.koVisibleChoices().length-1)">                <div data-bind="template: { name: \'survey-comment\', data: {\'question\': question, \'visible\': question.koOtherVisible } }, css: $root.css.checkbox.other"></div>            </div>        </div>        <!-- /ko -->    </form></script><script type="text/html" id="survey-question-comment">    <textarea type="text" data-bind="attr: {cols: question.cols, rows: question.rows}, value:question.koValue, css: $root.css.comment" /></script><script type="text/html" id="survey-question-dropdown">    <select data-bind="options: question.koVisibleChoices, optionsText: \'text\', optionsValue: \'value\', value: question.koValue, optionsCaption: question.optionsCaption, css: $root.css.dropdown"></select>    <div data-bind="visible: question.hasOther">        <div data-bind="template: { name: \'survey-comment\', data: {\'question\': question, \'visible\': question.koOtherVisible } }"></div>    </div></script><script type="text/html" id="survey-question-errors">    <div role="alert" data-bind="visible: koErrors().length > 0, foreach: { data: koErrors, as: \'error\'}, css: $root.css.error.root">        <div>            <span aria-hidden="true" data-bind="css: $root.css.error.icon"></span>            <span data-bind="text:error.getText(), css: $root.css.error.item"></span>        </div>    </div></script><script type="text/html" id="survey-question-file">    <input type="file" data-bind="event: {change: dochange}">    <div>        <img data-bind="attr: { src: question.koData, height: question.imageHeight, width: question.imageWidth }, visible: question.koHasValue">    </div></script><script type="text/html" id="survey-question-html">    <div data-bind="html: question.processedHtml"></div></script><script type="text/html" id="survey-question-matrix">    <table data-bind="css: $root.css.matrix.root">        <thead>            <tr>                <th data-bind="visible: question.hasRows"></th>                <!-- ko foreach: question.columns -->                <th data-bind="text:$data.text"></th>                <!-- /ko -->            </tr>        </thead>        <tbody>            <!-- ko foreach: { data: question.visibleRows, as: \'row\' } -->            <tr>                <td data-bind="visible: question.hasRows, text:row.text"></td>                <!-- ko foreach: question.columns -->                <td>                    <input type="radio" data-bind="attr: {name: row.fullName, value: $data.value}, checked: row.koValue"/>                </td>                <!-- /ko -->            </tr>            <!-- /ko -->        </tbody>    </table></script><script type="text/html" id="survey-question-matrixdropdown">    <div data-bind="style: {overflowX: question.horizontalScroll? \'scroll\': \'\'}">        <table data-bind="css: $root.css.matrixdropdown.root">            <thead>                <tr>                    <th></th>                    <!-- ko foreach: question.columns -->                    <th data-bind="text: question.getColumnTitle($data), style: { minWidth: question.getColumnWidth($data) }"></th>                    <!-- /ko -->                </tr>            </thead>            <tbody>                <!-- ko foreach: { data: question.visibleRows, as: \'row\' } -->                <tr>                    <td data-bind="text:row.text"></td>                    <!-- ko foreach: row.cells-->                    <td>                        <!-- ko template: { name: \'survey-question-errors\', data: $data.question } -->                        <!-- /ko -->                        <!-- ko template: { name: \'survey-question-\' + $data.question.getType(), data: $data.question, as: \'question\' } -->                        <!-- /ko -->                    </td>                    <!-- /ko -->                </tr>                <!-- /ko -->            </tbody>        </table>    </div></script><script type="text/html" id="survey-question-matrixdynamic">    <div data-bind="style: {overflowX: question.horizontalScroll? \'scroll\': \'\'}">        <table data-bind="css: $root.css.matrixdynamic.root">            <thead>                <tr>                    <!-- ko foreach: question.columns -->                    <th data-bind="text: question.getColumnTitle($data), style: { minWidth: question.getColumnWidth($data) }"></th>                    <!-- /ko -->                    <th></th>                </tr>            </thead>            <tbody>                <!-- ko foreach: { data: question.koRows, as: \'row\' } -->                <tr>                    <!-- ko foreach: row.cells-->                    <td>                        <!-- ko template: { name: \'survey-question-errors\', data: $data.question } -->                        <!-- /ko -->                        <!-- ko template: { name: \'survey-question-\' + $data.question.getType(), data: $data.question, as: \'question\' } -->                        <!-- /ko -->                    </td>                    <!-- /ko -->                    <td><input type="button" data-bind="click:question.koRemoveRowClick, css: $root.css.matrixdynamic.button, value: question.removeRowText" /></td>                </tr>                <!-- /ko -->            </tbody>        </table>    </div>    <input type="button" data-bind="click:question.koAddRowClick, css: $root.css.matrixdynamic.button, value: question.addRowText" /></script><script type="text/html" id="survey-question-multipletext">    <table data-bind="css: $root.css.multipletext.root, foreach: { data:  question.koRows, as: \'row\' }">        <tr data-bind="foreach: { data: row, as: \'item\' }">            <td data-bind="text: item.title, css: $root.css.multipletext.itemTitle"></td>            <td><input type="text" style="float:left" data-bind="attr: {size: question.itemSize}, value: item.koValue, css: $root.css.multipletext.itemValue" /></td>        </tr>    </table></script><script type="text/html" id="survey-question-radiogroup">    <form data-bind="css: $root.css.radiogroup.root">        <!-- ko foreach: { data: question.koVisibleChoices, as: \'item\', afterRender: question.koAfterRender}  -->        <div  data-bind="style:{width: question.koWidth, \'margin-right\': question.colCount == 0 ? \'5px\': \'0px\'}, css: $root.css.radiogroup.item">            <label data-bind="css: $root.css.radiogroup.item">                <input type="radio" data-bind="attr: {name: question.name, value: item.value}, checked: question.koValue" />                <span data-bind="text: item.text"></span>            </label>            <div data-bind="visible: question.hasOther && ($index() == question.koVisibleChoices().length-1)">                <div data-bind="template: { name: \'survey-comment\', data: {\'question\': question, \'visible\': question.koOtherVisible}}, css: $root.css.radiogroup.other"></div>            </div>        </div>        <!-- /ko -->    </form></script><script type="text/html" id="survey-question-rating">    <div data-bind="css: $root.css.rating.root">        <!-- ko foreach: question.koVisibleRateValues -->        <label data-bind="css: question.koGetCss($data)">            <input type="radio" style="display: none;"                    data-bind="attr: {name: question.name, id: question.name + $index(), value: $data.value}, event: { change: question.koChange}" />            <span data-bind="visible: $index() == 0, text: question.mininumRateDescription"></span>            <span data-bind="text: $data.text"></span>            <span data-bind="visible: $index() == (question.koVisibleRateValues().length-1), text: question.maximumRateDescription"></span>        </label>        <!-- /ko -->    </div>    <div data-bind="visible: question.hasOther">        <div data-bind="template: { name: \'survey-comment\', data: {\'question\': question } }"></div>    </div></script><script type="text/html" id="survey-question-text">    <input data-bind="attr: {type: question.inputType, size: question.size}, value:question.koValue, css: $root.css.text"/></script><script type="text/html" id="survey-question">    <div style="vertical-align:top" data-bind="css: $root.css.question.root, style: {display: question.koVisible() ? \'inline-block\': \'none\', marginLeft: question.koMarginLeft, paddingRight: question.koPaddingRight, width: question.koRenderWidth }, attr: {id: id}">        <!-- ko if: question.hasTitle -->        <h5 data-bind="visible: $root.questionTitleLocation == \'top\', text: question.koTitle(), css: $root.css.question.title"></h5>        <!-- /ko -->        <!-- ko template: { name: \'survey-question-errors\', data: question } -->        <!-- /ko -->        <!-- ko template: { name: \'survey-question-\' + question.getType(), data: question, afterRender: question.koQuestionAfterRender } -->        <!-- /ko -->        <div data-bind="visible: question.hasComment">            <div data-bind="text:question.commentText"></div>            <div data-bind="template: { name: \'survey-comment\', data: {\'question\': question, \'visible\': true } }"></div>        </div>        <!-- ko if: question.hasTitle -->        <h5 data-bind="visible: $root.questionTitleLocation == \'bottom\', text: question.koTitle(), css: $root.css.question.title"></h5>        <!-- /ko -->    </div></script>';
+                koTemplate.html = '<script type="text/html" id="survey-comment">  <input data-bind="value:$data.question.koComment, visible:$data.visible, css: $root.css.question.comment" /></script><div data-bind="css: $root.css.root">    <div data-bind="visible: (title.length > 0) && showTitle && koState() != \'completed\', css: $root.css.header">        <h3 data-bind="text:title"></h3>    </div>    <!-- ko if: koState() == "running" -->    <div data-bind="css: $root.css.body">        <div data-bind="visible: showProgressBar ==\'top\', template: { name: \'survey-progress\', data: $data }"></div>        <div id="sq_page" data-bind="template: { name: \'survey-page\', data: koCurrentPage }"></div>        <div style="margin-top:10px" data-bind="visible: showProgressBar ==\'bottom\', template: { name: \'survey-progress\', data: $data }"></div>    </div>    <div data-bind="visible: showNavigationButtons && !isDesignMode, css: $root.css.footer">        <input type="button" data-bind="value: pagePrevText, click: prevPage, visible: !koIsFirstPage(), css: $root.cssNavigationPrev" />        <input type="button" data-bind="value: pageNextText, click: nextPage, visible: !koIsLastPage(), css: $root.cssNavigationNext" />        <input type="button" data-bind="value: completeText, click: completeLastPage, visible: koIsLastPage(), css: $root.cssNavigationComplete" />    </div>    <!-- /ko -->    <!-- ko if: koState() == "completed" -->    <div data-bind="html: processedCompletedHtml"></div>    <!-- /ko -->    <!-- ko if: koState() == "loading" -->    <div data-bind="html: processedLoadingHtml"></div>    <!-- /ko -->    <!-- ko if: koState() == "empty" -->    <div data-bind="text:emptySurveyText, css: $root.css.body"></div>    <!-- /ko --></div><script type="text/html" id="survey-page">    <h4 data-bind="visible: (title.length > 0) && data.showPageTitles, text: koNo() + processedTitle, css: $root.css.pageTitle"></h4>    <!-- ko foreach: { data: rows, as: \'row\'} -->    <div data-bind="visible: row.koVisible, css: $root.css.row">        <!-- ko foreach: { data: row.questions, as: \'question\' , afterRender: row.koAfterRender } -->            <!-- ko template: { name: \'survey-question\', data: question } --><!-- /ko -->        <!-- /ko -->    </div>    <!-- /ko --></script><script type="text/html" id="survey-progress">    <div style="width:60%;" data-bind="css: $root.css.progress">        <div data-bind="css: $root.css.progressBar, style:{width: koProgress() + \'%\'}"             role="progressbar" aria-valuemin="0"             aria-valuemax="100">            <span data-bind="text:koProgressText"></span>        </div>    </div></script><script type="text/html" id="survey-question-checkbox">    <form data-bind="css: $root.css.checkbox.root">        <!-- ko foreach: { data: question.koVisibleChoices, as: \'item\', afterRender: question.koAfterRender}  -->        <div data-bind="style:{width: question.koWidth, \'margin-right\': question.colCount == 0 ? \'5px\': \'0px\'}, css: $root.css.checkbox.item">            <label data-bind="css: $root.css.checkbox.item">                <input type="checkbox" data-bind="attr: {name: question.name, value: item.value}, checked: question.koValue" />                <span data-bind="text: item.text"></span>            </label>            <div data-bind="visible: question.hasOther && ($index() == question.koVisibleChoices().length-1)">                <div data-bind="template: { name: \'survey-comment\', data: {\'question\': question, \'visible\': question.koOtherVisible } }, css: $root.css.checkbox.other"></div>            </div>        </div>        <!-- /ko -->    </form></script><script type="text/html" id="survey-question-comment">    <textarea type="text" data-bind="attr: {cols: question.cols, rows: question.rows}, value:question.koValue, css: $root.css.comment" /></script><script type="text/html" id="survey-question-dropdown">    <select data-bind="options: question.koVisibleChoices, optionsText: \'text\', optionsValue: \'value\', value: question.koValue, optionsCaption: question.optionsCaption, css: $root.css.dropdown"></select>    <div data-bind="visible: question.hasOther">        <div data-bind="template: { name: \'survey-comment\', data: {\'question\': question, \'visible\': question.koOtherVisible } }"></div>    </div></script><script type="text/html" id="survey-question-errors">    <div role="alert" data-bind="visible: koErrors().length > 0, foreach: { data: koErrors, as: \'error\'}, css: $root.css.error.root">        <div>            <span aria-hidden="true" data-bind="css: $root.css.error.icon"></span>            <span data-bind="text:error.getText(), css: $root.css.error.item"></span>        </div>    </div></script><script type="text/html" id="survey-question-file">    <input type="file" data-bind="event: {change: dochange}">    <div>        <img data-bind="attr: { src: question.koData, height: question.imageHeight, width: question.imageWidth }, visible: question.koHasValue">    </div></script><script type="text/html" id="survey-question-html">    <div data-bind="html: question.processedHtml"></div></script><script type="text/html" id="survey-question-matrix">    <table data-bind="css: $root.css.matrix.root">        <thead>            <tr>                <th data-bind="visible: question.hasRows"></th>                <!-- ko foreach: question.columns -->                <th data-bind="text:$data.text"></th>                <!-- /ko -->            </tr>        </thead>        <tbody>            <!-- ko foreach: { data: question.visibleRows, as: \'row\' } -->            <tr>                <td data-bind="visible: question.hasRows, text:row.text"></td>                <!-- ko foreach: question.columns -->                <td>                    <input type="radio" data-bind="attr: {name: row.fullName, value: $data.value}, checked: row.koValue"/>                </td>                <!-- /ko -->            </tr>            <!-- /ko -->        </tbody>    </table></script><script type="text/html" id="survey-question-matrixdropdown">    <div data-bind="style: {overflowX: question.horizontalScroll? \'scroll\': \'\'}">        <table data-bind="css: $root.css.matrixdropdown.root">            <thead>                <tr>                    <th></th>                    <!-- ko foreach: question.columns -->                    <th data-bind="text: question.getColumnTitle($data), style: { minWidth: question.getColumnWidth($data) }"></th>                    <!-- /ko -->                </tr>            </thead>            <tbody>                <!-- ko foreach: { data: question.visibleRows, as: \'row\' } -->                <tr>                    <td data-bind="text:row.text"></td>                    <!-- ko foreach: row.cells-->                    <td>                        <!-- ko template: { name: \'survey-question-errors\', data: $data.question } -->                        <!-- /ko -->                        <!-- ko template: { name: \'survey-question-\' + $data.question.getType(), data: $data.question, as: \'question\' } -->                        <!-- /ko -->                    </td>                    <!-- /ko -->                </tr>                <!-- /ko -->            </tbody>        </table>    </div></script><script type="text/html" id="survey-question-matrixdynamic">    <div data-bind="style: {overflowX: question.horizontalScroll? \'scroll\': \'\'}">        <table data-bind="css: $root.css.matrixdynamic.root">            <thead>                <tr>                    <!-- ko foreach: question.columns -->                    <th data-bind="text: question.getColumnTitle($data), style: { minWidth: question.getColumnWidth($data) }"></th>                    <!-- /ko -->                    <th></th>                </tr>            </thead>            <tbody>                <!-- ko foreach: { data: question.koRows, as: \'row\' } -->                <tr>                    <!-- ko foreach: row.cells-->                    <td>                        <!-- ko template: { name: \'survey-question-errors\', data: $data.question } -->                        <!-- /ko -->                        <!-- ko template: { name: \'survey-question-\' + $data.question.getType(), data: $data.question, as: \'question\' } -->                        <!-- /ko -->                    </td>                    <!-- /ko -->                    <td><input type="button" data-bind="click:question.koRemoveRowClick, css: $root.css.matrixdynamic.button, value: question.removeRowText" /></td>                </tr>                <!-- /ko -->            </tbody>        </table>    </div>    <input type="button" data-bind="click:question.koAddRowClick, css: $root.css.matrixdynamic.button, value: question.addRowText" /></script><script type="text/html" id="survey-question-multipletext">    <table data-bind="css: $root.css.multipletext.root, foreach: { data:  question.koRows, as: \'row\' }">        <tr data-bind="foreach: { data: row, as: \'item\' }">            <td data-bind="text: item.title, css: $root.css.multipletext.itemTitle"></td>            <td><input type="text" style="float:left" data-bind="attr: {size: question.itemSize}, value: item.koValue, css: $root.css.multipletext.itemValue" /></td>        </tr>    </table></script><script type="text/html" id="survey-question-radiogroup">    <form data-bind="css: $root.css.radiogroup.root">        <!-- ko foreach: { data: question.koVisibleChoices, as: \'item\', afterRender: question.koAfterRender}  -->        <div  data-bind="style:{width: question.koWidth, \'margin-right\': question.colCount == 0 ? \'5px\': \'0px\'}, css: $root.css.radiogroup.item">            <label data-bind="css: $root.css.radiogroup.item">                <input type="radio" data-bind="attr: {name: question.name, value: item.value}, checked: question.koValue" />                <span data-bind="text: item.text"></span>            </label>            <div data-bind="visible: question.hasOther && ($index() == question.koVisibleChoices().length-1)">                <div data-bind="template: { name: \'survey-comment\', data: {\'question\': question, \'visible\': question.koOtherVisible}}, css: $root.css.radiogroup.other"></div>            </div>        </div>        <!-- /ko -->    </form></script><script type="text/html" id="survey-question-rating">    <div data-bind="css: $root.css.rating.root">        <!-- ko foreach: question.koVisibleRateValues -->        <label data-bind="css: question.koGetCss($data)">            <input type="radio" style="display: none;"                    data-bind="attr: {name: question.name, id: question.name + $index(), value: $data.value}, event: { change: question.koChange}" />            <span data-bind="visible: $index() == 0, text: question.mininumRateDescription"></span>            <span data-bind="text: $data.text"></span>            <span data-bind="visible: $index() == (question.koVisibleRateValues().length-1), text: question.maximumRateDescription"></span>        </label>        <!-- /ko -->    </div>    <div data-bind="visible: question.hasOther">        <div data-bind="template: { name: \'survey-comment\', data: {\'question\': question } }"></div>    </div></script><script type="text/html" id="survey-question-text">    <input data-bind="attr: {type: question.inputType, size: question.size}, value:question.koValue, css: $root.css.text"/></script><script type="text/html" id="survey-question">    <div style="vertical-align:top" data-bind="css: $root.css.question.root, style: {display: question.koVisible() ? \'inline-block\': \'none\', marginLeft: question.koMarginLeft, paddingRight: question.koPaddingRight, width: question.koRenderWidth }, attr: {id: id}">        <!-- ko if: question.hasTitle -->        <h5 data-bind="visible: $root.questionTitleLocation == \'top\', text: question.koTitle(), css: $root.css.question.title"></h5>        <!-- /ko -->        <!-- ko template: { name: \'survey-question-errors\', data: question } -->        <!-- /ko -->        <!-- ko template: { name: \'survey-question-\' + question.getType(), data: question, afterRender: question.koQuestionAfterRender } -->        <!-- /ko -->        <div data-bind="visible: question.hasComment">            <div data-bind="text:question.commentText"></div>            <div data-bind="template: { name: \'survey-comment\', data: {\'question\': question, \'visible\': true } }"></div>        </div>        <!-- ko if: question.hasTitle -->        <h5 data-bind="visible: $root.questionTitleLocation == \'bottom\', text: question.koTitle(), css: $root.css.question.title"></h5>        <!-- /ko -->    </div></script>';
 
                 /***/
             },
